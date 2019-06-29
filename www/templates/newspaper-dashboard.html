@@ -1,0 +1,105 @@
+	<ion-view view-title=" Dashboard" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll  id="page-dashboard" class=" page-dashboard">
+		
+
+<!-- code slide hero -->
+<div class="positive-900-bg slide-box-hero" ng-controller="postsCtrl">
+	<ion-slides class="slide-box-hero-content" options="{slidesPerView:1,autoplay:10000,loop:1}" slider="data.slider">
+		<ion-slide-page class="slide-box-hero-item" ng-repeat="item in data_posts | limitTo : 10:0" >
+		<div class="slide-box-hero-container" style="background: url('{{item.x_featured_media_original}}') no-repeat center center;">
+			<div class="padding caption">
+				<h2 ng-bind-html="item.title.rendered | strHTML"></h2>
+				<a ng-href="#/newspaper/post_singles/{{item.id}}">>> more</a>
+			</div>
+		</div>
+		</ion-slide-page>
+	</ion-slides>
+</div>
+<!-- ./code slide hero -->
+    
+<!-- code categories hero -->
+<a ng-href="#/newspaper/categories" class="tags-heroes-title light-bg dark">Categories <i class="pull-right icon ion-chevron-right"></i></a>
+<div class="light-bg" ng-controller="categoriesCtrl">
+	<div class="tags-heroes-content list">
+		
+        <div class="row">
+			<div ng-repeat="item in data_categories | limitTo:2:0" class="col" ng-class="$index ? 'col-33':'col-67'" >
+                <a href="#/newspaper/posts/{{item.id}}" class="button button-small button-full ink" ng-class="$index ? 'button-stable' : 'button-assertive'"><span ng-bind-html="item.name | strHTML"></span></a>
+            </div>
+		</div>
+        
+		<div class="row">
+			<div ng-repeat="item in data_categories | limitTo:2:2" class="col" ng-class="$index ? 'col-66':'col-33'" >
+                <a href="#/newspaper/posts/{{item.id}}" class="button button-small button-full ink" ng-class="$index ? 'button-energized-900' : 'button-stable'" ><span ng-bind-html="item.name | strHTML"></span></a>
+            </div>
+		</div>
+        
+         
+		<div class="row">
+			<div ng-repeat="item in data_categories | limitTo:2:4" class="col" ng-class="$index ? 'col-33':'col-67'" >
+                <a href="#/newspaper/posts/{{item.id}}" class="button button-small button-full ink" ng-class="$index ? 'button-stable' : 'button-royal-900'"><span ng-bind-html="item.name | strHTML"></span></a>
+            </div>
+		</div>
+      
+        
+	</div>
+</div>
+<!-- ./code categories hero -->
+
+    
+
+
+<!-- code feature posts -->
+<a ng-href="#/newspaper/posts/-1" class="slide-box-title stable-bg dark">Posts <i class="pull-right icon ion-chevron-right"></i></a>
+<div class="stable-bg dark slide-box-thumbnail" ng-controller="postsCtrl" >
+	<ion-slides class="slide-box-thumbnail-content" ng-if="data_posts" options="{slidesPerView:grid80,autoplay:10000,loop:1}" slider="data.slider" show-pager="false">
+		<ion-slide-page class="slide-box-thumbnail-item" ng-repeat="item in data_posts | limitTo : 16:0" ng-if="item.x_featured_media_large!=null">
+			<a ng-href="#/newspaper/post_singles/{{item.id}}"><img class="thumbnail" ng-src="{{item.x_featured_media}}" alt="" /></a>
+			<p class="caption"><a ng-href="#/newspaper/post_singles/{{item.id}}" ng-bind-html="item.title.rendered | strHTML" ></a></p>
+		</ion-slide-page>
+	</ion-slides>
+</div>
+<!-- ./code feature posts -->
+        
+
+
+ 
+<!-- code items -->
+<div class="intro-box list light-bg dark" ng-controller="postsCtrl" >
+    <div class="list" ng-repeat="item in data_posts | limitTo: 5:0">
+        <div class="item item-colorful"  ng-bind-html="item.title.rendered | strHTML"></div>
+        <div class="item item-text-wrap" ng-class="item.x_featured_media ? 'item-thumbnail-left' : ''">
+            <img alt="" class="full-image" ng-src="{{item.x_featured_media}}" ng-if="item.x_featured_media!=null" />
+            <span ng-bind-html="item.excerpt.rendered | limitTo:140 | strHTML "></span>
+        </div>
+        <a class="item button button-clear colorful ink" href="#/newspaper/post_singles/{{item.id}}">Read more</a>
+    </div>
+</div>
+<!-- ./code items -->
+
+
+<!-- code user -->
+<a ng-href="#/newspaper/users" class="slide-box-title calm-900-bg">Users <i class="pull-right icon ion-chevron-right"></i></a>
+<div class="calm-900-bg slide-box-avatar" ng-controller="usersCtrl" >
+    <ion-slides class="slide-box-avatar-content" ng-if="data_users" options="{slidesPerView:grid80}" slider="data.slider" show-pager="false">
+    	<ion-slide-page class="slide-box-avatar-item" ng-repeat="item in data_users | limitTo : 16:0" >
+    		<img class="avatar" ng-src="{{ item.avatar_urls[96] }}" alt="" />
+    	</ion-slide-page>
+    </ion-slides>
+</div>
+<!-- ./code user  -->
+
+        
+
+<div class="dark-bg stable">
+       <div class="padding text-center">&copy Fonebay Inc Private Limited, 2019</div> 
+</div>
+
+<br/>
+<br/>
+
+    
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

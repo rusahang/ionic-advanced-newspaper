@@ -1,0 +1,80 @@
+	<ion-view view-title=" {{posts[0].x_categories}} ({{paging}})" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll scroll="true"   id="page-posts" class=" page-posts">
+		 
+	
+<!-- code refresh -->
+<ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()"></ion-refresher>
+<!-- ./code refresh -->
+
+
+<!-- code search -->
+<ion-list class="card list" >
+	<div class="item item-input">
+		<i class="icon ion-search placeholder-icon"></i>
+		<input type="search" ng-model="filter_posts.title.rendered" placeholder="Filter" aria-label="filter posts" />
+	</div>
+</ion-list>
+<!-- ./code search -->
+
+<!-- code listing -->
+<div class="list card" ng-repeat="item in posts | filter:filter_posts as results" ng-init="$last ? fireEvent() : null" >
+	
+    <a class="item item-avatar" ng-href="#/newspaper/post_singles/{{item.id}}">
+        <img alt="" ng-src="{{item.x_gravatar}}" />
+        <h2 ng-bind-html="item.title.rendered | to_trusted"></h2>
+        <p> {{item.x_date}}</p>		
+	</a>
+ 
+	<div class="item item-body">
+        <img class="full-image" ng-if="item.x_featured_media_medium" alt="" ng-src="{{item.x_featured_media_medium}}" zoom-view="true" zoom-src="{{item.x_featured_media_original}}" />
+		<p class="to_trusted {{ fontsize }}" ng-bind-html="item.excerpt.rendered | to_trusted"></p>            
+	</div>
+    
+ 
+ 
+	<div class="item tabs tabs-secondary tabs-icon-left tabs-stable">
+        <a class="tab-item assertive" href="#/newspaper/post_singles/{{item.id}}"><i class="icon ion-android-more-vertical"></i>Read more</a>
+        <!--a class="tab-item" run-social-sharing message="{{item.link}}"><i class="icon ion-android-share-alt"></i> Share</a-->
+		<a class="tab-item" ng-click="addToDbVirtual(item);"><i class="icon ion-ios-star"></i> Bookmark</a>
+	</div>
+ 
+  
+</div>
+<!-- ./code listing -->
+
+
+<!-- code infinite scroll -->
+<ion-list class="list">
+	<ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="onInfinite()" distance="5px" ng-if="hasMoreData"></ion-infinite-scroll>
+</ion-list>
+<!-- ./code infinite scroll -->
+
+
+<!-- code search result not found -->
+<ion-list class="list card" ng-if="results.length == 0">
+	<div class="item">
+		<p>No results found...!</p>
+	</div>
+</ion-list>
+<!-- code search result not found -->
+
+
+<div class="list">
+	<div class="item tabs tabs-secondary tabs-stable">
+		<a class="tab-item" ng-click="updatePaging(false);"><i class="icon ion-chevron-left"></i>Back</a>
+        <span class="tab-item">{{ paging }}</span>
+		<a class="tab-item" ng-click="updatePaging(true);"><i class="icon ion-chevron-right"></i> Next</a>
+	</div>
+</div> 
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

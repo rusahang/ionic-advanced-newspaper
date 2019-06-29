@@ -1,0 +1,12 @@
+{
+  "name": "newspaper",
+  "integrations": {},
+  "type": "ionic1",
+  "id": "com.fonebayinc.newspaper",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}

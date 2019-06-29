@@ -1,0 +1,53 @@
+	<ion-view view-title=" {{ 'Categories' | translate }}" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll scroll="true"   id="page-categories" class=" page-categories">
+		
+<!-- code refresh -->
+<ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()"></ion-refresher>
+<!-- ./code refresh -->
+
+
+<!-- code search -->
+<ion-list class="card list" >
+	<div class="item item-input">
+		<i class="icon ion-search placeholder-icon"></i>
+		<input type="search" ng-model="filter_categories.name" placeholder="{{ 'Filter' | translate }}" aria-label="filter categories" />
+	</div>
+</ion-list>
+<!-- ./code search -->
+
+<!-- code listing -->
+<div class="list animate-none">
+	<div class="padding" ng-repeat="item in categories | filter:filter_categories as results" ng-init="$last ? fireEvent() : null"><a class="item item-text-wrap item-colorful"  href="#/wp_eazy_setup/posts/{{item.id}}">
+		<h3 class=""  ng-bind-html="item.name | to_trusted"></h3>
+		<p>{{item.count}} pages</p>
+		<div class="to_trusted {{ fontsize }}" ng-bind-html="item.description | limitTo:50 | to_trusted"></div>
+	    <i class="icon ion-android-more-horizontal pull-right"></i>
+	</a></div>
+</div>
+<!-- ./code listing -->
+
+<!-- code infinite scroll -->
+<ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="onInfinite()" distance="5px" ng-if="hasMoreData"></ion-infinite-scroll>
+<!-- ./code infinite scroll -->
+
+<!-- code search result not found -->
+<ion-list ng-if="results.length == 0" class="list card">
+	<div class="item"  >
+		<p>No results found...!</p>
+	</div>
+</ion-list>
+<!-- ./code search result not found -->
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

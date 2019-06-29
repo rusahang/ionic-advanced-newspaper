@@ -1,0 +1,79 @@
+	<ion-view view-title=" {{ post.title.rendered }}" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll  id="page-post_singles" class="page-post_singles">
+		
+    
+<ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()"></ion-refresher>
+
+<div class="list card">
+
+    <div class="item item-avatar">
+        <img alt="" ng-src="{{post.x_gravatar}}" />
+        <h2 ng-bind-html="post.title.rendered | to_trusted"></h2>
+        <p> {{post.x_date}}</p>		
+	</div>
+
+	<div class="item item-text-wrap noborder to_trusted" ng-if="post.x_metadata.slider">
+    	<div class="slideshow_container to_trusted" >
+    			<ion-slides options="{slidesPerView:1}" slider="data.slider" class="slideshow">
+    				<ion-slide-page class="slideshow-item" ng-repeat="slide_item in post.x_metadata.slider | strExplode:'|' track by $index" >
+    					<div class="item-text-wrap" ng-bind-html="slide_item | to_trusted"></div>
+    				</ion-slide-page>
+    			</ion-slides>
+    	</div>
+	</div>
+
+    <div class="item noborder" ng-if="post.x_featured_media_large">
+        <img class="full-image" ng-src="{{post.x_featured_media_large}}" zoom-view="true" zoom-src="{{post.x_featured_media_original}}"/>
+    </div>
+  
+  
+	<div class="item noborder" ng-if="post.x_metadata.video">
+		<div class="embed_container">
+            <video controls="controls" ng-src="{{ post.x_metadata.video | trustUrl }}"></video>
+        </div>
+	</div>
+    
+    
+         <div class="item noborder"  ng-if="post.x_metadata.gmap">
+				<div ng-if="mapEnable" class="embed_container" data-tap-disabled="true">
+					<ng-map zoom="16" width="100%" center="{{post.x_metadata.gmap}}">
+						<marker position="{{post.x_metadata.gmap}}" ></marker>
+					</ng-map>
+				</div>
+          </div>
+    
+	<div class="item noborder" ng-if="post.x_metadata.youtube">
+	   <div class="embed_container">
+	       <iframe width="100%" ng-src="{{ 'https://www.youtube.com/embed/' + post.x_metadata.youtube | trustUrl }}" frameborder="0" allowfullscreen>
+		   </iframe>
+	   </div>
+	</div>
+                    
+        
+    <div class="item item-text-wrap noborder to_trusted {{ fontsize }}" ng-bind-html="post.content.rendered | strHTML"></div>
+        
+    <div class="item item-button" ng-if="post.x_metadata.download">
+        <a class="button button-colorful ink-dark" ng-click="openURL(post.x_metadata.download)">Download File</a>
+    </div>
+    
+    
+    <div class="item noborder">
+        by <strong ng-bind-html="post.x_author | strHTML"></strong>
+    </div>
+    
+</div>
+    
+    
+<div class="list card">
+	<div class="item tabs tabs-secondary tabs-icon-left tabs-stable">
+        <a class="tab-item" run-social-sharing message="{{post.link}}"><i class="icon ion-android-share-alt"></i> Share</a>
+		<a class="tab-item" ng-click="addToDbVirtual(post);"><i class="icon ion-ios-star"></i> Bookmark</a>
+		
+	</div>
+</div>    
+<br/><br/><br/>
+    
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

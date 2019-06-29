@@ -1,0 +1,30 @@
+	<ion-view view-title=" {{ 'Bookmarks' | translate }}" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll scroll="true"   id="page-post_bookmark" class="page-post_bookmark">
+		
+    
+<ion-list class="list" ng-if="post_bookmark.length != 0">
+	<ion-item class="item item-icon-left" type="item-avatar" ng-repeat="item in post_bookmark" ng-href="#/newspaper/post_singles/{{ item.id }}">
+		<i class="icon ion-ios-bookmarks-outline"></i>
+		<h2 class="" ng-bind-html="item.title.rendered | to_trusted"></h2>
+		<ion-option-button class="assertive-bg" ng-click="removeDbVirtualPost(item.id)"><i class="icon ion-trash-a"></i></ion-option-button>
+	</ion-item>					
+    
+    <ion-item class="item item-button">
+	   <button class="button button-small button-calm" ng-click="clearDbVirtualPost();"><i class="icon ion-ios-refresh-outline"></i> Clear</button>
+	</ion-item>
+
+</ion-list>
+
+
+<!-- no bookmark -->
+<div class="post_bookmark padding text-center" ng-if="post_bookmark.length == 0">
+	<i class="icon ion-ios-bookmarks-outline"></i>
+	<p>There are no items</p>
+</div>
+<!-- no bookmark -->
+    
+    
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>
